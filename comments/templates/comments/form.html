@@ -1,0 +1,27 @@
+{% load i18n comments %}
+
+<form method="POST" action="{% comment_form_target %}" onsubmit="post.disabled = true; return true;">
+    {% csrf_token %}
+    <fieldset>
+        <input type="hidden" name="next" value="{% url 'comments-xtd-sent' %}" />
+        <div class="alert alert-danger" data-comment-element="errors" hidden>
+        </div>
+
+        {% for field in form %}
+        {% if field.is_hidden %}<div>{{ field }}</div>{% endif %}
+        {% endfor %}
+        <div style="display:none">{{ form.honeypot }}</div>
+        <div class="form-floating mb-3 {% if 'comment' in form.errors %}has-danger{% endif %}">
+            {{ form.comment }}
+        </div>
+
+        <div class='form-check mb-3'>
+          {{ form.followup }}
+          <label for="id_followup{% if cid %}_{{ cid }}{% endif %}" class="form-check-label">&nbsp;{{ form.followup.label }}</label>
+        </div>
+
+    </fieldset>
+    <div class="form-group">
+        <input type="submit" name="post" value="{% trans 'post' %}" class="button small" />
+    </div>
+</form>

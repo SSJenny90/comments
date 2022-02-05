@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load i18n comments_xtd %}
+
+{% block title %}{% trans "Remove comment" %}{% endblock %}
+
+{% block content %}
+<section class='container wide'>
+  <h3 class="text-center">{% trans "Remove this comment?" %}</h3>
+  <p class="lead text-center">{% trans "As a moderator you can delete comments. Deleting a comment does not remove it from the site, only prevents your website from showing the text. Click on the remove button to delete the following comment:" %}</p>
+  <div class='container wide w-50'>
+    {% include 'comments/comment.html' %}
+    {% include 'comments/moderate_form.html' with value="Flag" %}
+  </div>
+</section>
+{% endblock %}
