@@ -12,7 +12,7 @@
 {% endif %}
 
 {% if object|can_receive_comments_from:user %}
-  <div class="comment">
+  <div class="comment-form">
     {% render_comment_form for object %}
   </div>
 {% endif %}
@@ -20,10 +20,23 @@
 <hr>
 
 {% if comment_count %}
-  <ul class="media-list">
+  <div id='comment-tree' >
     {% render_xtdcomment_tree for object allow_flagging %}
-  </ul>
+  </div>
 {% endif %}
+
+
+{% block modals %}
+  {% include 'comments/modals/flag.html' %}
+  {% include 'comments/modals/delete.html' %}
+  <div class='d-none'>
+    {% render_comment_form for object %}
+  </div>
+{% endblock modals %}
+
+
+{% addtoblock "js" %}<script src='{% static "comments/js/comments.js" %}'></script>{% endaddtoblock %}
+
 
 {% comment %} <div id="comments"></div>
 

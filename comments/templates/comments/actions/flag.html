@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n sekizai_tags %}
 
 {% if not comment.is_removed %}
   {% if perms.comments.can_moderate %}
@@ -9,9 +9,6 @@
   {% if allow_flagging and request.user in item.flagged %}
     <i class="fas fa-flag text-danger" title="{% trans 'comment flagged' %}"></i>
   {% elif allow_flagging %}
-    <a class="mutedlink"
-        href="{% url 'comments-flag' comment.pk %}">
-      <i class="fas fa-flag" title="{% trans 'flag comment' %}"></i>
-    </a>
+  <a href="#flagCommentModal" class='comment-flag' data-bs-target="#flagCommentModal" data-bs-toggle="modal" data-bs-dismiss="modal" data-bs-next="{{ comment.get_absolute_url }}" data-bs-action="{% url 'comments-flag' comment.pk %}"><i class="fas fa-flag" title="{% trans 'flag comment' %}"></i></a>
   {% endif %}
 {% endif %}
