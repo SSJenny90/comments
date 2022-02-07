@@ -39,7 +39,7 @@
 
 {% addtoblock "js" %}<script src='{% static "comments/js/comments.js" %}'></script>{% endaddtoblock %}
 {% addtoblock "js" %}<script>
-  var props = {% get_commentbox_props for object %};
+  {% comment %} var props = {% get_commentbox_props for object %}; {% endcomment %}
 {% comment %} console.log(props) {% endcomment %}
 </script>{% endaddtoblock %}
 {% comment %} <div id="comments"></div>
