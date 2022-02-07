@@ -1,4 +1,4 @@
-{% load static sekizai_tags comments comments_xtd %}
+{% load static sekizai_tags comments comments_xtd authentication %}
 {% get_comment_count for object as comment_count %}
 
 {% if user.is_authenticated %}
@@ -8,7 +8,7 @@
     Let us know what you think about {{object_descr|default_if_none:object}}!</p>
   {% endif %}
 {% else %}
-  <p>To prevent spam and keep the conversation on track, only registered users may comment. Please <a href="{% url 'account_login' %}?next={{ object.get_absolute_url }}">login</a> or <a href="{% url 'account_signup' %}?next={{ object.get_absolute_url }}">create an account</a> today!</p>
+  <p>To prevent spam and keep the conversation on track, only registered users may comment. Please {% auth_link 'login' 'login' %} or {% auth_link 'register' 'create an account' %}!</p>
 {% endif %}
 
 {% if object|can_receive_comments_from:user %}
@@ -29,15 +29,19 @@
 {% block modals %}
   {% include 'comments/modals/flag.html' %}
   {% include 'comments/modals/delete.html' %}
+
+  {% comment %} {% render_comment_form for object %} {% endcomment %}
   <div class='d-none'>
-    {% render_comment_form for object %}
+    <textarea id="floatingCommentForm" placeholder="Replying to" class="form-control textarea" rows="4" required></textarea>
   </div>
 {% endblock modals %}
 
 
 {% addtoblock "js" %}<script src='{% static "comments/js/comments.js" %}'></script>{% endaddtoblock %}
-
-
+{% addtoblock "js" %}<script>
+  var props = {% get_commentbox_props for object %};
+{% comment %} console.log(props) {% endcomment %}
+</script>{% endaddtoblock %}
 {% comment %} <div id="comments"></div>
 
 
