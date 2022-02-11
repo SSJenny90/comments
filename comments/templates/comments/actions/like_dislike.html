@@ -3,7 +3,7 @@
 {% if allow_feedback %}
 <span class="small">
     {% if show_feedback and item.likedit_users %}
-    <a class="badge badge-primary text-white cfb-counter" data-toggle="tooltip"
+    <a class="badge badge-primary text-white cfb-counter" data-bs-toggle="tooltip"
        title="{{ item.likedit_users|join:'<br/>' }}">
         {{ item.likedit_users|length }}</a>
     {% endif %}
@@ -14,7 +14,7 @@
     <span class="text-muted">|</span>
 
     {% if show_feedback and item.dislikedit_users %}
-    <a class="badge badge-primary text-white cfb-counter" data-toggle="tooltip"
+    <a class="badge badge-primary text-white cfb-counter" data-bs-toggle="tooltip"
        title="{{ item.dislikedit_users|join:'<br/>' }}">
         {{ item.dislikedit_users|length }}</a>
     {% endif %}
